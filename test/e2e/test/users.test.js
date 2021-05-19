@@ -52,7 +52,7 @@ describe('Users suite', () => {
         .send(TEST_USER_DATA)
         .expect(201)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .then((res) => {
           expect(res.body.id).to.be.a('string');
           userId = res.body.id;
         });
@@ -82,7 +82,7 @@ describe('Users suite', () => {
         .send(TEST_USER_DATA)
         .expect(201)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .then((res) => {
           expect(res.body.id).to.be.a('string');
           userId = res.body.id;
           expect(res.body).to.not.have.property('password');
@@ -106,7 +106,7 @@ describe('Users suite', () => {
         .post(routes.users.create)
         .set('Accept', 'application/json')
         .send(TEST_USER_DATA)
-        .then(res => {
+        .then((res) => {
           userId = res.body.id;
         });
 
@@ -132,7 +132,7 @@ describe('Users suite', () => {
         .set('Accept', 'application/json')
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => jestExpect(res.body).toMatchObject(expectedUser));
+        .then((res) => jestExpect(res.body).toMatchObject(expectedUser));
 
       // Teardown
       await request.delete(routes.users.delete(userId));
@@ -186,7 +186,7 @@ describe('Users suite', () => {
             .expect('Content-Type', /json/)
         )
       );
-      const userTaskIds = userTaskResponses.map(res => res.body.id);
+      const userTaskIds = userTaskResponses.map((res) => res.body.id);
 
       // Test:
       const deleteResponse = await request.delete(routes.users.delete(userId));
@@ -204,16 +204,16 @@ describe('Users suite', () => {
       }
 
       await Promise.all(
-        userTaskIds.map(async taskId =>
+        userTaskIds.map(async (taskId) =>
           request
             .delete(routes.tasks.getById(boardId, taskId))
-            .then(response => expect(response.status).oneOf([200, 204]))
+            .then((response) => expect(response.status).oneOf([200, 204]))
         )
       );
 
       await request
         .delete(routes.boards.delete(boardId))
-        .then(res => expect(res.status).oneOf([200, 204]));
+        .then((res) => expect(res.status).oneOf([200, 204]));
     });
   });
 });

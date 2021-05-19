@@ -21,10 +21,7 @@ describe('Users suite', () => {
 
   describe('POST', () => {
     it('should get 401 without token presented ', async () => {
-      await request
-        .post(routes.users.create)
-        .send(TEST_USER_DATA)
-        .expect(401);
+      await request.post(routes.users.create).send(TEST_USER_DATA).expect(401);
     });
   });
 
